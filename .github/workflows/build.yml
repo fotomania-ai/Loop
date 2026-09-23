@@ -1,33 +1,5 @@
 
-name: Build Loop
-
-on:
-  workflow_dispatch:
-  push:
-    branches: [ dev ]
-
-jobs:
-  build:
-    runs-on: macos-14
-    steps:
-      - name: Checkout LoopWorkspace
-        uses: actions/checkout@v4
-        with:
-          repository: 'LoopKit/LoopWorkspace'
-          token: ${{ secrets.GH_PAT }}
-          submodules: 'recursive'
-          path: 'Loop'
-
       - name: Setup Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: '16.0'
-
-      - name: Patch and Build
-        run: |
-          cd Loop
-          echo "Patching project signing settings..."
-          find . -name "project.pbxproj" -exec sed -i '' 's/CODE_SIGN_STYLE = Automatic;/CODE_SIGN_STYLE = Manual;/g' {} +
-          
-          echo "Starting simulator build with Xcode 16..."
-          xcodebuild -workspace LoopWorkspace.xcworkspace -scheme Loop -destination 'platform=iOS Simulator,name=iPhone 15' CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build
+          xcode-version: '16.1.0'
