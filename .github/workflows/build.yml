@@ -29,5 +29,5 @@ jobs:
           echo "Patching project signing settings..."
           find . -name "project.pbxproj" -exec sed -i '' 's/CODE_SIGN_STYLE = Automatic;/CODE_SIGN_STYLE = Manual;/g' {} +
           
-          echo "Starting simulator build with Xcode 16.1..."
-          xcodebuild -workspace LoopWorkspace.xcworkspace -scheme Loop -destination 'platform=iOS Simulator,name=iPhone 15' CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build
+          echo "Starting generic simulator build..."
+          xcodebuild -workspace LoopWorkspace.xcworkspace -scheme Loop -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build
