@@ -23,11 +23,11 @@ jobs:
         with:
           xcode-version: '15.4.0'
 
-      - name: Bootstrap and Build
+      - name: Resolve Packages and Build
         run: |
           cd Loop
-          echo "Running workspace bootstrap..."
-          ./Scripts/bootstrap
+          echo "Resolving Swift packages..."
+          xcodebuild -resolvePackageDependencies -workspace LoopWorkspace.xcworkspace -scheme Loop
           
           echo "Patching project signing settings..."
           find . -name "project.pbxproj" -exec sed -i '' 's/CODE_SIGN_STYLE = Automatic;/CODE_SIGN_STYLE = Manual;/g' {} +
