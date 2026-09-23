@@ -23,10 +23,10 @@ jobs:
         with:
           xcode-version: '15.4'
 
-      - name: Build Loop App via Script
+      - name: Build via Loop Build Script
         env:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
           cd Loop
-          echo "Running xcodebuild with automatic signing bypass..."
-          xcodebuild -workspace LoopWorkspace.xcworkspace -scheme Loop -sdk iphoneos -configuration Release CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO -allowProvisioningUpdates build
+          echo "Running official build script..."
+          ./build.sh session
