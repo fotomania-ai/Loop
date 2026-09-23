@@ -28,5 +28,5 @@ jobs:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
           cd Loop
-          echo "Running official build script..."
-          ./build.sh session
+          echo "Running build script via bash..."
+          bash ./build.sh session
