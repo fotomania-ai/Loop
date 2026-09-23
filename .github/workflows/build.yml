@@ -23,8 +23,8 @@ jobs:
         with:
           xcode-version: '15.4'
 
-      - name: Build Loop Workspace
+      - name: Archive Loop Workspace
         run: |
           cd Loop
-          echo "Building workspace with manual signing bypass..."
-          xcodebuild -workspace LoopWorkspace.xcworkspace -scheme Loop -destination 'generic/platform=iOS' CODE_SIGN_STYLE="Manual" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO build
+          echo "Creating archive..."
+          xcodebuild -workspace LoopWorkspace.xcworkspace -scheme Loop -sdk iphoneos -archivePath ./build/Loop.xcarchive archive CODE_SIGNING_ALLOWED=NO
