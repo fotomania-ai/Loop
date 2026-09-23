@@ -23,8 +23,8 @@ jobs:
         with:
           xcode-version: '15.4'
 
-      - name: Archive Loop Workspace
+      - name: Archive Loop Workspace without SDK restriction
         run: |
           cd Loop
-          echo "Creating archive..."
-          xcodebuild -workspace LoopWorkspace.xcworkspace -scheme Loop -sdk iphoneos -archivePath ./build/Loop.xcarchive archive CODE_SIGNING_ALLOWED=NO
+          echo "Creating archive with correct multi-platform support..."
+          xcodebuild -workspace LoopWorkspace.xcworkspace -scheme Loop -archivePath ./build/Loop.xcarchive archive CODE_SIGNING_ALLOWED=NO
