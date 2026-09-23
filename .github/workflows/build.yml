@@ -1,4 +1,5 @@
 
+
 name: Build Loop
 
 on:
@@ -24,7 +25,7 @@ jobs:
           GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           echo "Starting Loop build process..."
-          git clone https://github.com/LoopKit/LoopWorkspace.git Loop
+          git clone https://x-access-token:${{ secrets.GH_PAT }}@github.com/LoopKit/LoopWorkspace.git Loop
           cd Loop
           git submodule update --init --recursive
           ./scripters/bootstrap.sh
