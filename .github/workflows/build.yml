@@ -1,6 +1,7 @@
 
 
 
+
 name: Build Loop
 
 on:
@@ -30,6 +31,5 @@ jobs:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
           echo "Starting Loop build process..."
-          cd Loop
-          ./scripts/bootstrap.sh
-          xcodebuild -project Loop.xcodeproj -scheme "Loop (Generic)" -sdk iphoneos -configuration Release archive -archivePath $PWD/build/Loop.xcarchive
+          ./Loop/scripts/bootstrap.sh
+          xcodebuild -project Loop/Loop.xcodeproj -scheme "Loop (Generic)" -sdk iphoneos -configuration Release archive -archivePath $PWD/build/Loop.xcarchive
