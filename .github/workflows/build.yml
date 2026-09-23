@@ -23,8 +23,10 @@ jobs:
         with:
           xcode-version: '15.4'
 
-      - name: Archive Loop Workspace without SDK restriction
+      - name: Resolve Dependencies and Build
         run: |
           cd Loop
-          echo "Creating archive with correct multi-platform support..."
-          xcodebuild -workspace LoopWorkspace.xcworkspace -scheme Loop -archivePath ./build/Loop.xcarchive archive CODE_SIGNING_ALLOWED=NO
+          echo "Resolving package dependencies..."
+          xcodebuild -resolvePackageDependencies -workspace LoopWorkspace.xcworkspace -scheme Loop
+          echo "Building workspace..."
+          xcodebuild -workspace LoopWorkspace.xcworkspace -scheme Loop -destination 'generic/platform=iOS' CODE_SIGNING_ALLOWED=NO build
