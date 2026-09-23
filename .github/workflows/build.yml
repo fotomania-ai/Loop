@@ -23,10 +23,8 @@ jobs:
         with:
           xcode-version: '15.4'
 
-      - name: Build via Loop Build Script
-        env:
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      - name: Build Loop App for iOS
         run: |
           cd Loop
-          echo "Running build script via bash..."
-          bash ./build.sh session
+          echo "Building Loop for iOS..."
+          xcodebuild -workspace LoopWorkspace.xcworkspace -scheme Loop -destination 'generic/platform=iOS' CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO build
