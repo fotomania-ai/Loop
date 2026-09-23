@@ -23,11 +23,8 @@ jobs:
         with:
           xcode-version: '15.4'
 
-      - name: Build Loop via official script
-        env:
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      - name: Build Loop Workspace
         run: |
           cd Loop
-          echo "Running build script to bypass profile restrictions..."
-          # Das Skript baut die App ohne strenge Account-Prüfung
-          ./build.sh generic/platform=iOS
+          echo "Building workspace with manual signing bypass..."
+          xcodebuild -workspace LoopWorkspace.xcworkspace -scheme Loop -destination 'generic/platform=iOS' CODE_SIGN_STYLE="Manual" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO build
