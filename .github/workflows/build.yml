@@ -1,3 +1,4 @@
+
 name: Build Loop
 
 on:
@@ -22,6 +23,9 @@ jobs:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           GH_PAT: ${{ secrets.GH_PAT }}
         run: |
-          echo "Starting full Loop build process..."
-          xcodebuild -version
-          # Hier folgen im nächsten Schritt die Build-Skripte für Loop
+          echo "Starting Loop build process..."
+          git clone https://github.com/LoopKit/LoopWorkspace.git Loop
+          cd Loop
+          git submodule update --init --recursive
+          ./scripters/bootstrap.sh
+          xcodebuild -project Loop.xcodeproj -scheme Loop (Generic) -sdk iphoneos -configuration Release archive -archivePath $PWD/build/Loop.xcarchive
