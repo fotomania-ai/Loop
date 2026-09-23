@@ -21,15 +21,13 @@ jobs:
       - name: Setup Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: '16.1.0'
+          xcode-version: '15.4.0'
 
       - name: Patch and Build
         run: |
           cd Loop
-          echo "Patching project signing and Swift language version..."
+          echo "Patching project signing settings..."
           find . -name "project.pbxproj" -exec sed -i '' 's/CODE_SIGN_STYLE = Automatic;/CODE_SIGN_STYLE = Manual;/g' {} +
-          find . -name "project.pbxproj" -exec sed -i '' 's/SWIFT_VERSION = 6.0;/SWIFT_VERSION = 5.0;/g' {} +
-          find . -name "project.pbxproj" -exec sed -i '' 's/SWIFT_VERSION = 5.9;/SWIFT_VERSION = 5.0;/g' {} +
           
-          echo "Starting build..."
+          echo "Starting build with Xcode 15.4..."
           xcodebuild -workspace LoopWorkspace.xcworkspace -scheme Loop -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build
