@@ -23,11 +23,8 @@ jobs:
         with:
           xcode-version: '15.4'
 
-      - name: Prepare and Build Workspace
+      - name: Build Loop via xcodebuild target bypass
         run: |
           cd Loop
-          echo "Initializing and updating dependencies..."
-          git submodule update --init --recursive
-          
-          echo "Building Loop workspace for iOS..."
-          xcodebuild -workspace LoopWorkspace.xcworkspace -scheme Loop -destination 'generic/platform=iOS' CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO build
+          echo "Cleaning up derived data and building..."
+          xcodebuild -workspace LoopWorkspace.xcworkspace -scheme Loop -sdk iphoneos ONLY_ACTIVE_ARCH=NO build
