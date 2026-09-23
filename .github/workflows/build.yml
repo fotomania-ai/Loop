@@ -23,10 +23,11 @@ jobs:
         with:
           xcode-version: '15.4'
 
-      - name: Resolve Dependencies and Build
+      - name: Patch and Build
         run: |
           cd Loop
-          echo "Resolving package dependencies..."
-          xcodebuild -resolvePackageDependencies -workspace LoopWorkspace.xcworkspace -scheme Loop
-          echo "Building workspace..."
-          xcodebuild -workspace LoopWorkspace.xcworkspace -scheme Loop -destination 'generic/platform=iOS' CODE_SIGNING_ALLOWED=NO build
+          echo "Patching project signing settings..."
+          find . -name "project.pbxproj" -exec sed -i '' 's/CODE_SIGN_STYLE = Automatic;/CODE_SIGN_STYLE = Manual;/g' {} +
+          
+          echo "Starting simulator build..."
+          xcodebuild -workspace LoopWorkspace.xcworkspace -scheme Loop -destination 'platform=iOS Simulator,name=iPhone 15' CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build
