@@ -18,6 +18,10 @@ jobs:
           xcode-version: '15.4'
 
       - name: Build Loop App
+        env:
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
-          echo "Starting Loop build process..."
+          echo "Starting full Loop build process..."
           xcodebuild -version
+          # Hier folgen im nächsten Schritt die Build-Skripte für Loop
