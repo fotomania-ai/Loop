@@ -26,8 +26,10 @@ jobs:
       - name: Patch and Build
         run: |
           cd Loop
-          echo "Patching project signing settings..."
+          echo "Patching project signing and Swift language version..."
           find . -name "project.pbxproj" -exec sed -i '' 's/CODE_SIGN_STYLE = Automatic;/CODE_SIGN_STYLE = Manual;/g' {} +
+          find . -name "project.pbxproj" -exec sed -i '' 's/SWIFT_VERSION = 6.0;/SWIFT_VERSION = 5.0;/g' {} +
+          find . -name "project.pbxproj" -exec sed -i '' 's/SWIFT_VERSION = 5.9;/SWIFT_VERSION = 5.0;/g' {} +
           
-          echo "Starting build with relaxed warning checks..."
-          xcodebuild -workspace LoopWorkspace.xcworkspace -scheme Loop -destination 'generic/platform=iOS Simulator' SWIFT_TREAT_WARNINGS_AS_ERRORS=NO CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build
+          echo "Starting build..."
+          xcodebuild -workspace LoopWorkspace.xcworkspace -scheme Loop -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build
