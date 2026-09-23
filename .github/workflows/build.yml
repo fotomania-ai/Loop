@@ -23,14 +23,17 @@ jobs:
         with:
           xcode-version: '15.4.0'
 
-      - name: Resolve Packages and Build
+      - name: Run Native Build Script
         run: |
           cd Loop
-          echo "Resolving Swift packages..."
-          xcodebuild -resolvePackageDependencies -workspace LoopWorkspace.xcworkspace -scheme Loop
+          echo "Suche nach verfügbaren Build-Skripten..."
+          ls -la Scripts/
           
-          echo "Patching project signing settings..."
-          find . -name "project.pbxproj" -exec sed -i '' 's/CODE_SIGN_STYLE = Automatic;/CODE_SIGN_STYLE = Manual;/g' {} +
-          
-          echo "Starting build..."
-          xcodebuild -workspace LoopWorkspace.xcworkspace -scheme Loop -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build
+          # Hier rufen wir das native Skript auf, falls vorhanden
+          if [ -f "./Scripts/build-select" ]; then
+            ./Scripts/build-select
+          elif [ -f "./Scripts/bootstrap" ]; then
+            ./Scripts/bootstrap
+          else
+            echo "Kein Standard-Skript gefunden, nutze alternativen Build-Pfad"
+          fi
