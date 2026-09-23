@@ -1,4 +1,5 @@
 
+
 name: Build Loop
 
 on:
@@ -27,7 +28,6 @@ jobs:
         env:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
-          echo "Checking directory structure..."
-          pwd
-          ls -la
-          ls -la Loop || true
+          cd Loop
+          echo "Building Loop..."
+          xcodebuild -project Loop.xcodeproj -scheme Loop -sdk iphoneos -configuration Release CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO build
