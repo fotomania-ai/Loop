@@ -1,5 +1,6 @@
 
 
+
 name: Build Loop
 
 on:
@@ -29,4 +30,4 @@ jobs:
           cd Loop
           git submodule update --init --recursive
           ./scripters/bootstrap.sh
-          xcodebuild -project Loop.xcodeproj -scheme Loop (Generic) -sdk iphoneos -configuration Release archive -archivePath $PWD/build/Loop.xcarchive
+          xcodebuild -project Loop.xcodeproj -scheme "Loop (Generic)" -sdk iphoneos -configuration Release archive -archivePath $PWD/build/Loop.xcarchive
