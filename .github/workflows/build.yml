@@ -23,8 +23,11 @@ jobs:
         with:
           xcode-version: '15.4'
 
-      - name: Build Loop App for iOS
+      - name: Prepare and Build Workspace
         run: |
           cd Loop
-          echo "Building Loop for iOS..."
+          echo "Initializing and updating dependencies..."
+          git submodule update --init --recursive
+          
+          echo "Building Loop workspace for iOS..."
           xcodebuild -workspace LoopWorkspace.xcworkspace -scheme Loop -destination 'generic/platform=iOS' CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO build
