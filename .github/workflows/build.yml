@@ -23,13 +23,13 @@ jobs:
         with:
           xcode-version: '15.4.0'
 
-      - name: Prepare Workspace and Build
+      - name: Resolve Packages and Build
         run: |
           cd Loop
-          echo "Führe Workspace-Vorbereitung aus..."
-          ./Scripts/manual_LoopWorkspace_prepare_pr.sh
+          echo "Löse Swift-Pakete auf..."
+          xcodebuild -workspace LoopWorkspace.xcworkspace -scheme Loop -destination 'generic/platform=iOS Simulator' -resolvePackageDependencies
           
-          echo "Patching project signing settings..."
+          echo "Passe Signierung an..."
           find . -name "project.pbxproj" -exec sed -i '' 's/CODE_SIGN_STYLE = Automatic;/CODE_SIGN_STYLE = Manual;/g' {} +
           
           echo "Starte Build..."
