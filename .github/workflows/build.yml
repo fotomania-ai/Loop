@@ -18,5 +18,5 @@ jobs:
       - name: Select Xcode Version
         run: sudo xcode-select -s /Applications/Xcode.app
 
-      - name: Build Loop Workspace
-        run: xcodebuild -workspace Loop/Loop.xcworkspace -scheme Loop -destination "generic/platform=iOS" clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+      - name: Build Loop Project
+        run: xcodebuild -project Loop/Loop.xcodeproj -scheme Loop -destination "generic/platform=iOS" clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
