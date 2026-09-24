@@ -23,19 +23,20 @@ jobs:
         with:
           xcode-version: '15.4.0'
 
-      - name: Set up Ruby & Fastlane
+      - name: Set up Ruby & Dependencies
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2'
           bundler-cache: true
           working-directory: 'Loop'
 
+      - name: Install Bundler and Gems
+        working-directory: 'Loop'
+        run: |
+          gem install bundler
+          bundle install
+
       - name: Run Fastlane Build
         working-directory: 'Loop'
         run: |
-          # Versucht, Fastlane über Bundler oder direkt auszuführen
-          if [ -f "Gemfile" ]; then
-            bundle exec fastlane build || bundle exec fastlane release
-          else
-            fastlane build
-          fi
+          bundle exec fastlane build
