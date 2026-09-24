@@ -21,11 +21,9 @@ jobs:
         bundler-cache: true
 
     - name: Setup project team
-      working-directory: fastlane
       run: bundle exec fastlane update_project_team
 
     - name: Run Fastlane Build
-      working-directory: fastlane
       env:
         FASTLANE_KEY_ID: ${{ secrets.FASTLANE_KEY_ID }}
         FASTLANE_ISSUER_ID: ${{ secrets.FASTLANE_ISSUER_ID }}
