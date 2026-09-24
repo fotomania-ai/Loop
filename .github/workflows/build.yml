@@ -23,6 +23,8 @@ jobs:
 
       - name: Setup project team
         run: bundle exec fastlane update_project_team
+        working-directory: ./Loop  # Falls die Dateien im Ordner "Loop" liegen, ansonsten hier den echten Ordnernamen einsetzen
 
       - name: Run Fastlane Build
         run: bundle exec fastlane build
+        working-directory: ./Loop
