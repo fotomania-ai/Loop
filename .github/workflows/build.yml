@@ -34,16 +34,10 @@ jobs:
         working-directory: 'Loop'
         run: |
           gem install bundler
+          bundle config set --local frozen 'false'
           bundle update fastlane
 
       - name: Run Fastlane Build
         working-directory: 'Loop'
         run: |
           bundle exec fastlane ios build_loop
-
-
-
-
-
-
-
