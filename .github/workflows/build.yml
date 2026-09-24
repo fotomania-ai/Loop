@@ -15,8 +15,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Find Xcode project
-        run: find . -name "*.xcodeproj"
-
       - name: Select Xcode Version
         run: sudo xcode-select -s /Applications/Xcode.app
+
+      - name: Build Loop Project
+        run: xcodebuild -project Loop.xcodeproj -scheme Loop -destination "generic/platform=iOS" clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+
+      - name: Upload app artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Loop-App
+          path: build/Build/Products/Debug-iphonesimulator/Loop.app
