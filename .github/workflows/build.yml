@@ -1,31 +1,31 @@
 
-name: Build Loop via Fastlane
+name: Build Loop
 
 on:
+  workflow_dispatch:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-14
 
     steps:
-    - uses: actions/checkout@v3
-      with:
-        ref: 'main'
-        submodules: recursive
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: '3.1'
-        bundler-cache: true
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+          working-directory: fastlane
 
-    - name: Setup project team
-      run: bundle exec fastlane update_project_team
+      - name: Setup project team
+        working-directory: fastlane
+        run: bundle exec fastlane update_project_team
 
-    - name: Run Fastlane Build
-      env:
-        FASTLANE_KEY_ID: ${{ secrets.FASTLANE_KEY_ID }}
-        FASTLANE_ISSUER_ID: ${{ secrets.FASTLANE_ISSUER_ID }}
-      run: bundle exec fastlane build
+      - name: Run Fastlane Build
+        working-directory: fastlane
+        run: bundle exec fastlane build
