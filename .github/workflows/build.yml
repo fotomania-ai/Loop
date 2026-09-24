@@ -30,13 +30,20 @@ jobs:
           bundler-cache: true
           working-directory: 'Loop'
 
-      - name: Install Bundler and Gems
+      - name: Install Bundler and Update Fastlane
         working-directory: 'Loop'
         run: |
           gem install bundler
-          bundle install
+          bundle update fastlane
 
       - name: Run Fastlane Build
         working-directory: 'Loop'
         run: |
           bundle exec fastlane ios build_loop
+
+
+
+
+
+
+
