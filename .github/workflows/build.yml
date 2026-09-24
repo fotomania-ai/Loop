@@ -18,11 +18,11 @@ jobs:
       - name: Select Xcode Version
         run: sudo xcode-select -s /Applications/Xcode.app
 
-      - name: Clean and Build Loop Project
-        run: xcodebuild -project Loop.xcodeproj -scheme Loop -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 15" clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS="" CODE_SIGNING_ALLOWED=NO
+      - name: Build Loop Main App Only
+        run: xcodebuild -project Loop.xcodeproj -scheme Loop -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 15" clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS="" CODE_SIGNING_ALLOWED=NO -derivedDataPath DerivedData
 
       - name: Upload app artifact
         uses: actions/upload-artifact@v4
         with:
           name: Loop-App
-          path: build/Build/Products/Debug-iphonesimulator/Loop.app
+          path: DerivedData/Build/Products/Debug-iphonesimulator/Loop.app
