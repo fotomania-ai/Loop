@@ -3,7 +3,7 @@ name: Build Loop via Fastlane
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -12,6 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       with:
+        ref: 'main'
         submodules: recursive
 
     - name: Set up Ruby
