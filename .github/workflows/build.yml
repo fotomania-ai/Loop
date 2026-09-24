@@ -18,8 +18,8 @@ jobs:
       - name: Select Xcode Version
         run: sudo xcode-select -s /Applications/Xcode.app
 
-      - name: Build Loop Workspace
-        run: xcodebuild -workspace Loop.xcworkspace -scheme Loop -destination "generic/platform=iOS Simulator" clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS="" CODE_SIGNING_ALLOWED=NO
+      - name: Build Loop Project
+        run: xcodebuild -project Loop.xcodeproj -scheme Loop -destination "generic/platform=iOS Simulator" clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS="" CODE_SIGNING_ALLOWED=NO
 
       - name: Upload app artifact
         uses: actions/upload-artifact@v4
