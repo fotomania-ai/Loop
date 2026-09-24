@@ -18,6 +18,9 @@ jobs:
       - name: Select Xcode Version
         run: sudo xcode-select -s /Applications/Xcode.app
 
+      - name: Resolve Package Dependencies
+        run: xcodebuild -project Loop.xcodeproj -scheme Loop -resolvePackageDependencies
+
       - name: Build Loop Project
         run: xcodebuild -project Loop.xcodeproj -scheme Loop -destination "generic/platform=iOS Simulator" clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS="" CODE_SIGNING_ALLOWED=NO
 
@@ -26,3 +29,4 @@ jobs:
         with:
           name: Loop-App
           path: build/Build/Products/Debug-iphonesimulator/Loop.app
+
