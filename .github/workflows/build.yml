@@ -23,6 +23,8 @@ jobs:
 
       - name: Setup project team
         run: bundle exec fastlane update_project_team
+        working-directory: ./fastlane
 
       - name: Run Fastlane Build
         run: bundle exec fastlane build
+        working-directory: ./fastlane
