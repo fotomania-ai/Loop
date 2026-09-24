@@ -1,5 +1,5 @@
 
-name: Build Loop
+name: Build Loop via Fastlane
 
 on:
   workflow_dispatch:
@@ -23,14 +23,19 @@ jobs:
         with:
           xcode-version: '15.4.0'
 
-      - name: Clean and Build Workspace
+      - name: Set up Ruby & Fastlane
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+          working-directory: 'Loop'
+
+      - name: Run Fastlane Build
+        working-directory: 'Loop'
         run: |
-          cd Loop
-          echo "Passe Signierung auf Manual an..."
-          find . -name "project.pbxproj" -exec sed -i '' 's/CODE_SIGN_STYLE = Automatic;/CODE_SIGN_STYLE = Manual;/g' {} +
-          
-          echo "Löse Swift-Pakete auf..."
-          xcodebuild -workspace LoopWorkspace.xcworkspace -scheme Loop -destination 'platform=iOS Simulator,name=iPhone 15' -resolvePackageDependencies
-          
-          echo "Führe sauberen Clean-Build durch..."
-          xcodebuild clean build -workspace LoopWorkspace.xcworkspace -scheme Loop -destination 'platform=iOS Simulator,name=iPhone 15' ARCHS=arm64 ONLY_ACTIVE_ARCH=YES SWIFT_TREAT_WARNINGS_AS_ERRORS=NO COMPILER_INDEX_STORE_ENABLE=NO CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY=""
+          # Versucht, Fastlane über Bundler oder direkt auszuführen
+          if [ -f "Gemfile" ]; then
+            bundle exec fastlane build || bundle exec fastlane release
+          else
+            fastlane build
+          fi
