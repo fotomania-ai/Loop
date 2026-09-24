@@ -23,14 +23,14 @@ jobs:
         with:
           xcode-version: '15.4.0'
 
-      - name: Prepare and Build Workspace
+      - name: Clean and Build Workspace
         run: |
           cd Loop
           echo "Passe Signierung auf Manual an..."
           find . -name "project.pbxproj" -exec sed -i '' 's/CODE_SIGN_STYLE = Automatic;/CODE_SIGN_STYLE = Manual;/g' {} +
           
-          echo "Führe Workspace-Vorbereitung aus..."
+          echo "Löse Swift-Pakete auf..."
           xcodebuild -workspace LoopWorkspace.xcworkspace -scheme Loop -destination 'platform=iOS Simulator,name=iPhone 15' -resolvePackageDependencies
           
-          echo "Starte optimierten Build-Prozess..."
-          xcodebuild -workspace LoopWorkspace.xcworkspace -scheme Loop -destination 'platform=iOS Simulator,name=iPhone 15' ARCHS=arm64 ONLY_ACTIVE_ARCH=YES SWIFT_TREAT_WARNINGS_AS_ERRORS=NO COMPILER_INDEX_STORE_ENABLE=NO CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build
+          echo "Führe sauberen Clean-Build durch..."
+          xcodebuild clean build -workspace LoopWorkspace.xcworkspace -scheme Loop -destination 'platform=iOS Simulator,name=iPhone 15' ARCHS=arm64 ONLY_ACTIVE_ARCH=YES SWIFT_TREAT_WARNINGS_AS_ERRORS=NO COMPILER_INDEX_STORE_ENABLE=NO CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY=""
