@@ -39,4 +39,4 @@ jobs:
       - name: Run Fastlane Build
         working-directory: 'Loop'
         run: |
-          bundle exec fastlane build
+          bundle exec fastlane ios build_loop
